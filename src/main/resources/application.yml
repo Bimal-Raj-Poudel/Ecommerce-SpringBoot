@@ -1,0 +1,22 @@
+#SERVER SETUP
+server:
+  port: 8080
+
+
+#DATABASE SETUP
+spring:
+  application:
+    name: BASIC_CRUD
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  #HIBERNATE CONFIGURATION
+  jpa:
+    properties:
+       hibernate:
+         dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate.ddl-auto: update
+    show-sql: true
