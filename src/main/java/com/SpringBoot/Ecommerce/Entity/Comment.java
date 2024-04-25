@@ -18,8 +18,8 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int commentId;
 
-
-    String commentContent;
+    @Column(name = "content", nullable = false)
+        String commentContent;
 
     @ManyToOne
     @JoinColumn(name = "productId")

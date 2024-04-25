@@ -5,7 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -20,7 +24,22 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int productId;
 
+    @Column(name = "product_name", nullable = false)
     String productName;
+
+    @Column(name = "product_description", nullable = false)
+    String productDescription;
+
+    @Column(name = "product_price", nullable = false)
+    Double price;
+
+    @CreationTimestamp
+    @Column(name = "listed_date")
+    Date listedDate;
+
+    @UpdateTimestamp
+    @Column(name = "updated_date")
+    Date updatedDate;
 
 
     @ManyToOne

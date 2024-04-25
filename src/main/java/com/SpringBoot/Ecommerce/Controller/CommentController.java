@@ -3,6 +3,7 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.CommentDto;
 import com.SpringBoot.Ecommerce.Service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -22,7 +23,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/user/{personId}/product/{productId}")
-    public ResponseEntity<CommentDto> postComment(@RequestBody CommentDto commentDto, @PathVariable Integer personId, @PathVariable Integer productId ){
+    public ResponseEntity<CommentDto> postComment(@Valid @RequestBody CommentDto commentDto, @PathVariable Integer personId, @PathVariable Integer productId ){
        CommentDto savedCommentDto = commentService.postComment(commentDto,personId, productId);
         return new ResponseEntity<>(savedCommentDto, HttpStatus.CREATED);
     }
@@ -49,7 +50,7 @@ public class CommentController {
     }
 
     @PutMapping("/{commentId}/person/{personId}")
-    public ResponseEntity<CommentDto> updateCommentById(@PathVariable Integer commentId,@PathVariable Integer personId, @RequestBody CommentDto commentDto){
+    public ResponseEntity<CommentDto> updateCommentById(@PathVariable Integer commentId,@PathVariable Integer personId,@Valid @RequestBody CommentDto commentDto){
      CommentDto commentDtoServiced = commentService.updateComment(commentId,personId,commentDto);
         return new ResponseEntity<>(commentDtoServiced,HttpStatus.OK);
     }

@@ -21,4 +21,9 @@ public interface ProductService {
 
     //updating the Product
     ProductDto updateProduct (Integer productId,Integer personId, ProductDto productDto);
+
+//    Pgination in product list
+    List<ProductDto> paginatedProductList(Integer pageSize, Integer pageNo);
+
+    List<ProductDto> getProductListByCategory(Integer categoryId);
 }

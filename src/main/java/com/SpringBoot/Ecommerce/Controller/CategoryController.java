@@ -2,6 +2,7 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.CategoryDto;
 import com.SpringBoot.Ecommerce.Service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> postCategory (@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> postCategory (@Valid @RequestBody CategoryDto categoryDto){
         CategoryDto categorydto= categoryService.postCategory(categoryDto);
         return new ResponseEntity<>(categorydto, HttpStatus.CREATED);
     }
@@ -41,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping("/updated/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategoryById(@PathVariable Integer categoryId, @RequestBody CategoryDto categoryDto){
+    public ResponseEntity<CategoryDto> updateCategoryById(@PathVariable Integer categoryId,@Valid @RequestBody CategoryDto categoryDto){
        CategoryDto categoryDtoService= categoryService.updateCategory(categoryId,categoryDto);
       return new ResponseEntity<>(categoryDtoService,HttpStatus.OK);
     }

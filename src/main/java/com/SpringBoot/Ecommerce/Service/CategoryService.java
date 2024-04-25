@@ -22,7 +22,6 @@ public interface CategoryService {
     void deleteCategory(Integer categoryId);
 
 
-
     // update the category
    CategoryDto updateCategory(Integer categoryId, CategoryDto categoryDto);
 }

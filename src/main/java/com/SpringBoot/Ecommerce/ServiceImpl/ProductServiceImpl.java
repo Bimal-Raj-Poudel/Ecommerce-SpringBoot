@@ -11,9 +11,10 @@ import com.SpringBoot.Ecommerce.Repository.PersonRepo;
 import com.SpringBoot.Ecommerce.Repository.ProductRepo;
 import com.SpringBoot.Ecommerce.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepo productRepo;
+
 
     @Autowired
     private ProductModelMapper productModelMapper;
@@ -83,5 +85,20 @@ public class ProductServiceImpl implements ProductService {
 
         Product saveProduct= productRepo.save(product);
         return productModelMapper.productToProductDTo(saveProduct);
+    }
+
+    @Override
+    public List<ProductDto> paginatedProductList(Integer pageSize, Integer pageNo) {
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Product> paginatedProduct = productRepo.findAll(pageable);
+        return paginatedProduct.getContent().stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getProductListByCategory(Integer categoryId) {
+        Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category","id",categoryId));
+        List<Product> productList = productRepo.findByCategory(category);
+        return productList.stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
     }
 }

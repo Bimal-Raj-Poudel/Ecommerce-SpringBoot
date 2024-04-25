@@ -49,4 +49,16 @@ public class ProductController {
         return new ResponseEntity<>(productDtoService,HttpStatus.OK);
     }
 
+    @GetMapping("/pagination/")
+    public ResponseEntity<List<ProductDto>> getAllPaginatedProductsList(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "2", required = false) Integer pageSize){
+        List<ProductDto> productList= productService.paginatedProductList(pageSize, pageNum);
+        return new ResponseEntity<>(productList,HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public  ResponseEntity<List<ProductDto>> getProductListByCategory(@PathVariable Integer categoryId){
+        List<ProductDto> productList = productService.getProductListByCategory(categoryId);
+        return new ResponseEntity<>(productList,HttpStatus.OK);
+    }
+
 }

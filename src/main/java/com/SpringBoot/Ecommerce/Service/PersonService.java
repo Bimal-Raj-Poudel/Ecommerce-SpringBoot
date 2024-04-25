@@ -22,5 +22,7 @@ void deletePerson(Integer personId);
 // Update Person
 PersonDto updatePerson(Integer personId, PersonDto personDto);
 
+PersonDto getPersonByEmail(String email);
 
+List<PersonDto>pageinatedpersonList(Integer pageNo , Integer pageSize);
 }

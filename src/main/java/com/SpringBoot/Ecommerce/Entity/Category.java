@@ -20,9 +20,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int categoryId;
 
+    @Column(name = "category_name", nullable = false)
     String categoryName;
 
-    String categoryType;
+    @Column(name = "category_content", nullable = false)
+    String categoryDescription;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     List<Product> products;

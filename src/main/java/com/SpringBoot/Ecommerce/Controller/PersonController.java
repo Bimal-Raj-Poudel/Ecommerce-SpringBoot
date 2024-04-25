@@ -2,6 +2,7 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.PersonDto;
 import com.SpringBoot.Ecommerce.Service.PersonService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,16 @@ public class PersonController {
         return new  ResponseEntity<>(personDto1, HttpStatus.OK);
     }
 
+    @GetMapping("/pagination/")
+    public ResponseEntity<List<PersonDto>>getAllPaginatedPersonLists(@RequestParam (value = "pageNum",defaultValue = "1", required = false) Integer pageNum, @RequestParam(value = "pageSize",defaultValue = "2", required = false) Integer pageSize){
+    List<PersonDto> listPaginatedPerson= personService.pageinatedpersonList(pageNum, pageSize);
+        return new ResponseEntity<>(listPaginatedPerson,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<PersonDto> getPersonByEmailAddress (@PathVariable String email){
+        PersonDto personDto = personService.getPersonByEmail(email);
+        return new ResponseEntity<>(personDto,HttpStatus.OK);
+    }
 }

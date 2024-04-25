@@ -18,11 +18,24 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int personId;
 
-    @Column(name = "name")
-    String name;
+    @Column(name = "email", nullable = false, unique = true)
+    String email;
+
+    @Column(name = "name",nullable = false)
+    String personName;
+
+    @Column(name = "address",nullable = false)
+    String address;
+
+    @Column(name = "gender",nullable = false)
+    String gender;
+
+    @Column(name = "number",nullable = false)
+    Double phoneNumber;
 
     @OneToMany(mappedBy="person", cascade=CascadeType.ALL)
     List<Product> products;
+
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     List<Rating> ratings;
 

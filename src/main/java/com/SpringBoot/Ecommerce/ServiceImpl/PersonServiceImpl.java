@@ -7,6 +7,9 @@ import com.SpringBoot.Ecommerce.ModelMapper.PersonModelMapper;
 import com.SpringBoot.Ecommerce.Repository.PersonRepo;
 import com.SpringBoot.Ecommerce.Service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -48,11 +51,22 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonDto updatePerson(Integer personId, PersonDto personDto) {
         Person person = personRepo.findById(personId).orElseThrow(() -> new ResourceNotFoundException("User","id", personId));
-//        Person person = Person.builder().name(personDto.getName()).personId(personDto.getPersonId()).build();
-
-        person.setName(personDto.getName());
+        person.setPersonName(personDto.getName());
         Person savePerson = personRepo.save(person);
         return personModelMapper.personToPersonDto(savePerson);
+    }
+
+    @Override
+    public PersonDto getPersonByEmail(String email) {
+        Person person = personRepo.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("Person","Email",1));
+        return personModelMapper.personToPersonDto(person);
+    }
+
+    @Override
+    public List<PersonDto> pageinatedpersonList(Integer pageNum, Integer pageSize) {
+        Pageable pageable= PageRequest.of(pageNum, pageSize);
+        Page<Person> paginatedPersonList = personRepo.findAll(pageable);
+        return paginatedPersonList.getContent().stream().map((person) -> personModelMapper.personToPersonDto(person)).collect(Collectors.toList());
     }
 
 

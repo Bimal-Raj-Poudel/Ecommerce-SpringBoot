@@ -12,10 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RatingDto {
+
     int ratingId;
-
     int ratingValue;
-
     PersonDto personDto;
 
 }

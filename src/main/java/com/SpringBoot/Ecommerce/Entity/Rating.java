@@ -17,6 +17,8 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int ratingId;
+
+    @Column(name = "rating_value", nullable = false)
     int ratingValue;
 
 
