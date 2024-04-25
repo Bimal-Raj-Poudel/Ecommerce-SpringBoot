@@ -2,6 +2,8 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.RatingDto;
 import com.SpringBoot.Ecommerce.Service.RatingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/rating")
 public class RatingController {
+
+    Logger logger = LoggerFactory.getLogger(RatingController.class);
 
     @Autowired
     private RatingService ratingService;
@@ -44,7 +48,7 @@ public class RatingController {
 
     @PutMapping("/person/{personId}/product/{productId}/rating/{ratingId}")
     public ResponseEntity<RatingDto>updateRating(@PathVariable Integer personId, @PathVariable Integer productId,@PathVariable Integer ratingId, @RequestBody RatingDto ratingDto ){
-
+        logger.info("Rating Update controller.");
         RatingDto savedRatingDto =ratingService.updateRating(ratingId,personId,productId,ratingDto);
         return new ResponseEntity<>(savedRatingDto,HttpStatus.OK);
     }
