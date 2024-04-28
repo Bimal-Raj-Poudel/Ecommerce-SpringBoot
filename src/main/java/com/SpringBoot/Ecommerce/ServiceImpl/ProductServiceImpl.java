@@ -1,5 +1,6 @@
 package com.SpringBoot.Ecommerce.ServiceImpl;
 
+import com.SpringBoot.Ecommerce.DTO.PersonDto;
 import com.SpringBoot.Ecommerce.DTO.ProductDto;
 import com.SpringBoot.Ecommerce.Entity.Category;
 import com.SpringBoot.Ecommerce.Entity.Person;
@@ -94,11 +95,32 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> paginatedProduct = productRepo.findAll(pageable);
         return paginatedProduct.getContent().stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
     }
-
     @Override
     public List<ProductDto> getProductListByCategory(Integer categoryId) {
         Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Category","id",categoryId));
         List<Product> productList = productRepo.findByCategory(category);
         return productList.stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDto> filterByKeyword(String keyword) {
+        List<Product> productList = productRepo.filterByKeyword(keyword);
+        return productList.stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDto> getProductByPersonId(Integer personId) {
+       Person person= personRepo.findById(personId).orElseThrow(()-> new ResourceNotFoundException("person","id",personId));
+       List<Product> productList=productRepo.findByPerson(person);
+        return productList.stream().map((product) -> productModelMapper.productToProductDTo(product)).collect(Collectors.toList());
+    }
+
+
+    // getting product list by gender
+//    @Override
+//    public ProductDto getProductByGender(String gender) {
+//        personRepo.
+//
+//        return null;
+//    }
 }

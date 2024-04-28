@@ -2,7 +2,7 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.PersonDto;
 import com.SpringBoot.Ecommerce.Service.PersonService;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping( "/")
-    public ResponseEntity<PersonDto> createPerson(@RequestBody PersonDto personDto){
+    public ResponseEntity<PersonDto> createPerson( @Valid @RequestBody PersonDto personDto){
         logger.info("I am in Person Controller class.");
         PersonDto postPersonDto = personService.postPerson(personDto);
         return new ResponseEntity<>(postPersonDto, HttpStatus.CREATED);
@@ -49,7 +49,7 @@ public class PersonController {
     }
 
     @PutMapping("/{personId}")
-    public ResponseEntity<PersonDto> updatePerson1(@PathVariable Integer personId, @RequestBody PersonDto personDto){
+    public ResponseEntity<PersonDto> updatePerson1(@PathVariable Integer personId,@Valid @RequestBody PersonDto personDto){
         PersonDto personDto1 = personService.updatePerson(personId, personDto);
         return new  ResponseEntity<>(personDto1, HttpStatus.OK);
     }
@@ -66,4 +66,14 @@ public class PersonController {
         PersonDto personDto = personService.getPersonByEmail(email);
         return new ResponseEntity<>(personDto,HttpStatus.OK);
     }
+
+    // filtering the person by Keyword
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<PersonDto>>searchByKeywordFiltering(@PathVariable String keyword){
+       List<PersonDto> personDtoList= personService.filterByKeyword(keyword);
+       return new ResponseEntity<>(personDtoList,HttpStatus.OK);
+    }
+
+
+
 }

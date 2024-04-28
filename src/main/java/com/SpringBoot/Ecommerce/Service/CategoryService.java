@@ -24,4 +24,13 @@ public interface CategoryService {
 
     // update the category
    CategoryDto updateCategory(Integer categoryId, CategoryDto categoryDto);
+
+   //pagination of category
+    List<CategoryDto> getCategoryListByPagination(Integer pageNo, Integer pageSize);
+
+
+    // filtering the category by keyword
+    List<CategoryDto> filterByKeyword( String Keyword);
+
+
 }

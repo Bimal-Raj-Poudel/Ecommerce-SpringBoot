@@ -24,7 +24,39 @@ public interface EntityValidation {
 
     String PERSON_ADDRESS_SIZE="address must be aleast 6 words";
 
-    //
+    String ENTER_VALID_EMAIL = "Enter valid Email address.";
+
+    String EMAIL_NOT_EMPTY = "Email mus not be empty.";
+
+    String EMAIL_REGEXP = "^[a-zA-Z0-9#-_&]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]{2,}$";
+
+   String PERSON_GENDER_NOTEMPTY=" Gender must be provided";
+
+   String PERSON_NUMBER_NOT_EMPTY=" Phone Number Must be Entered";
+
+   String PERSON_NUMBER_SIZE= " Phone Number Must Be atleast 10 Digits";
+
+
+
+   //FOR PRODUCT VALIDATION
+    String PRODUCT_NAME_NOT_EMPTY="Product name must be given.";
+
+    String PRODUCT_NAME_SIZE= "product name size must be atleast 5 char";
+    String PRODUCT_DESCRIPTION_NOT_EMPTY=" product description cannot be empty";
+
+    String PRODUCT_DESCRIPTION_SIZE= "product description must be in 10 char";
+
+    String PRODUCT_PRICE_NOT_EMPTY="Price for any product must be given";
+     String PRODUCT_MIN_PRICE="Minimum price must be grater than 1 Rupees .";
+
+//   For Rating Validation
+
+    String RATING_VALUE_NOT_NULL = "Rating value field can not be null.";
+
+    String MIN_RATING_VALUE = "Minimum value is 1.";
+
+    String MAX_RATING_VALUE = "Maximum value is 5.";
+
 
 
 }

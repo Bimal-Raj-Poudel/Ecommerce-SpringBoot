@@ -23,4 +23,16 @@ public interface CommentService {
     //update the comment
     CommentDto updateComment(Integer commentId,Integer personId,CommentDto commentDto);
 
+    //pagination in comment
+    List<CommentDto>paginatedCommentList(Integer pageNum, Integer pageSize);
+
+
+    //getting Comments By ProductId
+    List<CommentDto>getCommentListByProductId(Integer productId);
+
+
+    //getting Comment by personId
+    List<CommentDto>getCommentListByPersonId(Integer personId);
+
+
 }

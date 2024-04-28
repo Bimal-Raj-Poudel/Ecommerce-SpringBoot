@@ -23,4 +23,8 @@ public interface  RatingService {
 
     //updating the rating
     RatingDto updateRating(Integer ratingId,Integer personId, Integer productId, RatingDto ratingDto);
+
+    // pagination for rating of the list
+
+
 }

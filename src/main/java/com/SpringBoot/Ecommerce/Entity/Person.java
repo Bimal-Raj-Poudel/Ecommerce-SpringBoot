@@ -31,9 +31,9 @@ public class Person {
     String gender;
 
     @Column(name = "number",nullable = false)
-    Double phoneNumber;
+    String phoneNumber;
 
-    @OneToMany(mappedBy="person", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="person", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     List<Product> products;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)

@@ -7,6 +7,9 @@ import com.SpringBoot.Ecommerce.ModelMapper.CategoryModelMapper;
 import com.SpringBoot.Ecommerce.Repository.CategoryRepo;
 import com.SpringBoot.Ecommerce.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
 
     @Autowired
     private CategoryModelMapper categoryModelMapper;
@@ -62,4 +66,22 @@ public class CategoryServiceImpl implements CategoryService {
      Category saveCategory= categoryRepo.save(category);
       return categoryModelMapper.categoryToCategoryDto(saveCategory);
     }
+
+    //paginated by categoryList
+    @Override
+    public List<CategoryDto> getCategoryListByPagination(Integer pageNo, Integer pageSize) {
+        Pageable pageable= PageRequest.of(pageNo,pageSize);
+        Page<Category> paginatedListOfCategory= categoryRepo.findAll(pageable);
+        return paginatedListOfCategory.getContent().stream().map((category)->categoryModelMapper.categoryToCategoryDto(category)).collect(Collectors.toList());
+    }
+
+
+    // filtering the category by keyword
+    @Override
+    public List<CategoryDto> filterByKeyword(String Keyword) {
+      List<Category> categoryList=  categoryRepo.filterByKeyword(Keyword);
+        return categoryList.stream().map((category) -> categoryModelMapper.categoryToCategoryDto(category)).collect(Collectors.toList());
+    }
+
+
 }

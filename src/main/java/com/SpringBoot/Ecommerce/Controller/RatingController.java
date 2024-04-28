@@ -2,6 +2,7 @@ package com.SpringBoot.Ecommerce.Controller;
 
 import com.SpringBoot.Ecommerce.DTO.RatingDto;
 import com.SpringBoot.Ecommerce.Service.RatingService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class RatingController {
     private RatingService ratingService;
 
     @PostMapping("/user/{personId}/product/{productId}")
-    public ResponseEntity<RatingDto> postRating(@RequestBody RatingDto ratingDto, @PathVariable Integer personId, @PathVariable  Integer productId)
+    public ResponseEntity<RatingDto> postRating(@Valid @RequestBody RatingDto ratingDto, @PathVariable Integer personId, @PathVariable  Integer productId)
     {
        RatingDto ratingDtoService=ratingService.postRating(ratingDto,personId,productId);
        return new ResponseEntity<>(ratingDtoService, HttpStatus.OK);

@@ -12,6 +12,9 @@ import com.SpringBoot.Ecommerce.Repository.PersonRepo;
 import com.SpringBoot.Ecommerce.Repository.ProductRepo;
 import com.SpringBoot.Ecommerce.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,5 +87,32 @@ public class CommentServiceImpl implements CommentService {
         return commentModelMapper.commentToCommentDto(saveComment);
     }
 
+    @Override
+    public List<CommentDto> paginatedCommentList(Integer pageNum, Integer pageSize) {
+
+        Pageable pageable=PageRequest.of(pageNum,pageSize);
+        Page<Comment> paginatedCommentList = commentRepo.findAll(pageable);
+
+        return paginatedCommentList.getContent().stream().map((comment)-> commentModelMapper.commentToCommentDto(comment)).collect(Collectors.toList());
+    }
+
+
+
+    //get comment list by productId
+    @Override
+    public List<CommentDto> getCommentListByProductId(Integer productId) {
+        Product product = productRepo.findById(productId).orElseThrow(()-> new ResourceNotFoundException("product","Id",productId));
+       List<Comment> commentList= commentRepo.findByProduct(product);
+        return commentList.stream().map((comment)-> commentModelMapper.commentToCommentDto(comment)).collect(Collectors.toList());
+    }
+
+
+    //getting comment List By PersonId
+    @Override
+    public List<CommentDto> getCommentListByPersonId(Integer personId) {
+        Person person= personRepo.findById(personId).orElseThrow(()-> new ResourceNotFoundException("person","id",personId));
+       List<Comment> commentList= commentRepo.findByPerson(person);
+        return commentList.stream().map((comment)-> commentModelMapper.commentToCommentDto(comment)).collect(Collectors.toList());
+    }
 
 }

@@ -62,7 +62,9 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public void deleteRating(Integer ratingId) {
+
        Rating rating = ratingRepo.findById(ratingId).orElseThrow(()-> new ResourceNotFoundException("rating","id",ratingId));
+       ratingRepo.delete(rating);
     }
 
     @Override

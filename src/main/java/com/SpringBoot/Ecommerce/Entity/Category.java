@@ -26,6 +26,6 @@ public class Category {
     @Column(name = "category_content", nullable = false)
     String categoryDescription;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Product> products;
 }

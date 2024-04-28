@@ -20,6 +20,7 @@ public class CommentDto implements EntityValidation {
     @Size(min = 4, message = COMMENT_CONTENT_SIZE)
     String commentContent;
 
-
+    PersonDto personDto;
+    ProductDto productDto;
 
 }

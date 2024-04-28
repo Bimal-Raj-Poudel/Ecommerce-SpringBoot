@@ -1,5 +1,6 @@
 package com.SpringBoot.Ecommerce.Service;
 
+import com.SpringBoot.Ecommerce.DTO.PersonDto;
 import com.SpringBoot.Ecommerce.DTO.ProductDto;
 import com.SpringBoot.Ecommerce.Entity.Product;
 
@@ -26,4 +27,16 @@ public interface ProductService {
     List<ProductDto> paginatedProductList(Integer pageSize, Integer pageNo);
 
     List<ProductDto> getProductListByCategory(Integer categoryId);
+
+
+    //filter task
+    List<ProductDto> filterByKeyword(String keyword);
+
+
+    //getElement by person
+    List<ProductDto> getProductByPersonId(Integer personId);
+
+    //Finding Product by gender
+//    ProductDto getProductByGender(String gender);
+
 }

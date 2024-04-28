@@ -61,4 +61,19 @@ public class ProductController {
         return new ResponseEntity<>(productList,HttpStatus.OK);
     }
 
+    //filter by keyword
+    @GetMapping("/search/{keyWord}")
+    public ResponseEntity<List<ProductDto>> searchByKeywordProducts(@PathVariable String keyWord){
+        List<ProductDto> productDtoList = productService.filterByKeyword(keyWord);
+        return new ResponseEntity<>(productDtoList,HttpStatus.OK);
+    }
+
+    //get product List By PersonId
+    @GetMapping("/user/{personId}")
+    public ResponseEntity<List<ProductDto>> getProductListByPerson(@PathVariable Integer personId){
+       List<ProductDto> productList= productService.getProductByPersonId(personId);
+        return new ResponseEntity<>(productList,HttpStatus.OK);
+    }
+
+
 }

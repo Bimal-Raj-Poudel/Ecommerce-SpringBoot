@@ -70,4 +70,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
 
+    //filter By keyword
+    @Override
+    public List<PersonDto> filterByKeyword(String keyword) {
+        List<Person> personList= personRepo.filterByKeyword(keyword);
+        return personList.stream().map((person)-> personModelMapper.personToPersonDto(person)).collect(Collectors.toList());
+    }
+
+
 }

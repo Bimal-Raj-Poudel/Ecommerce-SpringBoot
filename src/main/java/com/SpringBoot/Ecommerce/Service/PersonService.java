@@ -25,4 +25,7 @@ PersonDto updatePerson(Integer personId, PersonDto personDto);
 PersonDto getPersonByEmail(String email);
 
 List<PersonDto>pageinatedpersonList(Integer pageNo , Integer pageSize);
+
+// filter by keyword
+    List<PersonDto> filterByKeyword(String keyword);
 }

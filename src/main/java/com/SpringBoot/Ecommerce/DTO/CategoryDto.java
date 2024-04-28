@@ -25,5 +25,7 @@ public class CategoryDto implements EntityValidation{
     @Size(min = 10, message = CATEGORY_DESCRIPTION_SIZE)
     String categoryDescription;
 
+    ProductDto productDto;
+
 
 }

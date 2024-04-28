@@ -56,6 +56,11 @@ public class CommentController {
     }
 
 
-
+    //paginated Comment list
+    @GetMapping("/pagination/")
+    public ResponseEntity<List<CommentDto>> getPaginatedOfComment(@RequestParam (value = "pageNum",defaultValue = "1",required = false) Integer pageNum, @RequestParam(value = "pageSize",defaultValue = "2", required = false) Integer pageSize){
+    List<CommentDto> commentList=commentService.paginatedCommentList(pageNum,pageSize);
+    return new ResponseEntity<>(commentList,HttpStatus.OK) ;
+    }
 
 }

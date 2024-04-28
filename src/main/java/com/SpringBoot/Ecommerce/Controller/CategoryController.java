@@ -18,32 +18,43 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/")
-    public ResponseEntity<CategoryDto> postCategory (@Valid @RequestBody CategoryDto categoryDto){
-        CategoryDto categorydto= categoryService.postCategory(categoryDto);
+    public ResponseEntity<CategoryDto> postCategory(@Valid @RequestBody CategoryDto categoryDto) {
+        CategoryDto categorydto = categoryService.postCategory(categoryDto);
         return new ResponseEntity<>(categorydto, HttpStatus.CREATED);
     }
 
     @RequestMapping("/")
-    public ResponseEntity<List<CategoryDto>> getAllCategory(){
+    public ResponseEntity<List<CategoryDto>> getAllCategory() {
         List<CategoryDto> categoryDtoList = categoryService.getAllCategory();
-        return new ResponseEntity<>(categoryDtoList,HttpStatus.OK);
+        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
     @RequestMapping("/{categoryId}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Integer categoryId){
-        CategoryDto categoryDtoService= categoryService.getCategoryById(categoryId);
-        return new ResponseEntity<>(categoryDtoService,HttpStatus.OK);
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Integer categoryId) {
+        CategoryDto categoryDtoService = categoryService.getCategoryById(categoryId);
+        return new ResponseEntity<>(categoryDtoService, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleted/{categoryId}")
-    public ResponseEntity<Map<String ,String>> deleteCategoryById(@PathVariable Integer categoryId){
+    public ResponseEntity<Map<String, String>> deleteCategoryById(@PathVariable Integer categoryId) {
         categoryService.deleteCategory(categoryId);
-        return new ResponseEntity<>(Map.of("message","message"),HttpStatus.OK);
+        return new ResponseEntity<>(Map.of("message", "message"), HttpStatus.OK);
     }
 
     @PutMapping("/updated/{categoryId}")
-    public ResponseEntity<CategoryDto> updateCategoryById(@PathVariable Integer categoryId,@Valid @RequestBody CategoryDto categoryDto){
-       CategoryDto categoryDtoService= categoryService.updateCategory(categoryId,categoryDto);
-      return new ResponseEntity<>(categoryDtoService,HttpStatus.OK);
+    public ResponseEntity<CategoryDto> updateCategoryById(@PathVariable Integer categoryId, @Valid @RequestBody CategoryDto categoryDto) {
+        CategoryDto categoryDtoService = categoryService.updateCategory(categoryId, categoryDto);
+        return new ResponseEntity<>(categoryDtoService, HttpStatus.OK);
     }
+
+    @GetMapping("/pagination/")
+    public ResponseEntity<List<CategoryDto>> getCategoryByPagination(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum, @RequestParam(value = "pageSize", defaultValue = "2", required = false) Integer pageSize) {
+
+        List<CategoryDto> paginatedCategoryList=categoryService.getCategoryListByPagination(pageNum,pageSize);
+        return new ResponseEntity<>(paginatedCategoryList,HttpStatus.OK);
+    }
+
+
+
+
 }
