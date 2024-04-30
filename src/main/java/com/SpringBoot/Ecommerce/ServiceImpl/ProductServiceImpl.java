@@ -1,11 +1,14 @@
 package com.SpringBoot.Ecommerce.ServiceImpl;
 
+import com.SpringBoot.Ecommerce.DTO.CategoryDto;
 import com.SpringBoot.Ecommerce.DTO.PersonDto;
 import com.SpringBoot.Ecommerce.DTO.ProductDto;
 import com.SpringBoot.Ecommerce.Entity.Category;
 import com.SpringBoot.Ecommerce.Entity.Person;
 import com.SpringBoot.Ecommerce.Entity.Product;
 import com.SpringBoot.Ecommerce.Exception.ResourceNotFoundException;
+import com.SpringBoot.Ecommerce.ModelMapper.CategoryModelMapper;
+import com.SpringBoot.Ecommerce.ModelMapper.PersonModelMapper;
 import com.SpringBoot.Ecommerce.ModelMapper.ProductModelMapper;
 import com.SpringBoot.Ecommerce.Repository.CategoryRepo;
 import com.SpringBoot.Ecommerce.Repository.PersonRepo;
@@ -28,6 +31,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductModelMapper productModelMapper;
+
+    @Autowired
+    private CategoryModelMapper categoryModelMapper;
+
+    @Autowired
+    private PersonModelMapper personModelMapper;
 
     @Autowired
     private PersonRepo personRepo;
@@ -53,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         return productModelMapper.productToProductDTo(saveProduct);
     }
 
-    // geting all the list of product
+    // getting all the list of product
     @Override
     public List<ProductDto> getAllProduct() {
         List<Product>  productList = productRepo.findAll();
@@ -64,7 +73,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getProductById(Integer productId) {
        Product product= productRepo.findById(productId).orElseThrow(() -> new ResourceNotFoundException("product","id",productId));
-        return productModelMapper.productToProductDTo(product);
+        ProductDto productDto =  productModelMapper.productToProductDTo(product);
+        productDto.setPersonDto(personModelMapper.personToPersonDto(product.getPerson()));
+        productDto.setCategoryDto(categoryModelMapper.categoryToCategoryDto(product.getCategory()));
+       return productDto;
     }
 
 

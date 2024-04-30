@@ -33,7 +33,6 @@ public class ProductDto {
 
 
 
-    @NotEmpty(message = PRODUCT_PRICE_NOT_EMPTY)
     @DecimalMin(value="0.0", inclusive=false, message=PRODUCT_MIN_PRICE)
     Double price;
 
